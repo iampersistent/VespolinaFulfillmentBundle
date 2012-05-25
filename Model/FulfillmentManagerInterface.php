@@ -20,7 +20,7 @@ interface FulfillmentManagerInterface
      * @arg $product
      * @return Vespolina\FulfillmentBundle\Model\FulfillmentInterface
      */
-    function createFulfillment($product);
+    public function createFulfillment($product);
 
     /**
      * Find a fulfillment collection by the criteria
@@ -32,7 +32,7 @@ interface FulfillmentManagerInterface
      *
      * @return array
      */
-    function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
+    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null);
 
     /**
      * Find a Fulfillment by its object identifier
@@ -40,14 +40,14 @@ interface FulfillmentManagerInterface
      * @param $id
      * @return Vespolina\FulfillmentBundle\Model\FulfillmentInterface
      */
-    function findFulfillmentById($id);
+    public function findFulfillmentById($id);
 
     /**
      * Update and persist the fulfillment
      *
      * @param Vespolina\FulfillmentBundle\Model\FulfillmentInterface $fulfillment
-     * @param Boolean $andFlush Whether to flush the changes (default true)
+     * @param Boolean                                                $andFlush    Whether to flush the changes (default true)
      */
-    function updateFulfillment(FulfillmentInterface $fulfillment, $andFlush = true);
+    public function updateFulfillment(FulfillmentInterface $fulfillment, $andFlush = true);
 
 }

@@ -13,11 +13,11 @@ namespace Vespolina\FulfillmentBundle\Model;
  */
 interface FulfillmentInterface
 {
-    function setState($state);
+    public function setState($state);
 
-    function getState();
+    public function getState();
 
-    function getProduct();
+    public function getProduct();
 
-    function setProduct($product);
+    public function setProduct($product);
 }

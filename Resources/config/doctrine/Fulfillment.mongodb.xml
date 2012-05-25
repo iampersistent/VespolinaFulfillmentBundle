@@ -17,7 +17,7 @@
         <field name="createdAt" fieldName="createdAt" type="date" />
 
         <field name="updatedAt" fieldName="updatedAt" type="date" />
-        
+
     </mapped-superclass>
 
 </doctrine-mongo-mapping>

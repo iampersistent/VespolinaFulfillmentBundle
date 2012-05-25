@@ -10,7 +10,6 @@ namespace Vespolina\FulfillmentBundle\Model;
 use Vespolina\FulfillmentBundle\Model\Fulfillment;
 use Vespolina\FulfillmentBundle\Model\FulfillmentInterface;
 use Vespolina\FulfillmentBundle\Model\FulfillmentManagerInterface;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * @author Richard Shank <develop@zestic.com>
@@ -19,12 +18,12 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 abstract class FulfillmentManager implements FulfillmentManagerInterface
 {
     private $fulfillmentClass;
-    
+
     public function __construct($fulfillmentClass)
     {
         $this->fulfillmentClass = $fulfillmentClass;
     }
-    
+
     /**
      * Create a Fulfillment instance
      *

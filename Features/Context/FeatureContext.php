@@ -41,7 +41,7 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
       protected $fulfillment;
       protected $fm;
       protected $product;
-    
+
       /**
         * @Given /^I create a fulfillment on a product$/
         */
