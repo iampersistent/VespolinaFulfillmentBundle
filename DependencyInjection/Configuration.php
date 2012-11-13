@@ -3,6 +3,7 @@
 namespace Vespolina\FulfillmentBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
@@ -19,11 +20,29 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('vespolina_fulfillment');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+            ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
+            ->end();
+        $this->addFulfillmentMethodsSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    protected function addFulfillmentMethodsSection(ArrayNodeDefinition $node)
+    {
+        $node->children()
+            ->arrayNode('fulfillment_methods')
+            ->children()
+                ->arrayNode('shipment')
+                    ->prototype('array')
+                    ->children()
+                        ->scalarNode('class')->end()
+                    ->end()
+                ->end()
+            ->end()
+            ->end()
+            ->end();
+
     }
 }

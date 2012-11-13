@@ -10,6 +10,9 @@ use Behat\Behat\Context\ClosuredContextInterface,
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
 
+use  Vespolina\FulfillmentBundle\Features\Model\Product;
+use  Vespolina\FulfillmentBundle\Features\Model\DummyFulfillment;
+use  Vespolina\FulfillmentBundle\Features\Model\FulfillmentManager;
 //
 // Require 3rd-party libraries here:
 //
@@ -35,12 +38,18 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
 //    }
 //
 
+      protected $fulfillment;
+      protected $fm;
+      protected $product;
+
       /**
-        * @Given /^I create a fulfillment order on a product$/
+        * @Given /^I create a fulfillment on a product$/
         */
-       public function iCreateAFulfillmentOrderOnAProduct()
+       public function iCreateAFulfillmentOnAProduct()
        {
-           
+           $this->product = new Product();
+           $this->fm = new FulfillmentManager('Vespolina\FulfillmentBundle\Features\Model\DummyFulfillment');
+           $this->fulfillment = $this->fm->createFulfillment($this->product);
        }
 
        /**
@@ -48,24 +57,96 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
         */
        public function iShouldSeeFulfillmentOrderOfThisProductInitialized()
        {
-           throw new PendingException();
+            assertInstanceOf('Vespolina\FulfillmentBundle\Model\FulfillmentInterface', $this->fulfillment);
        }
 
        /**
-        * @When /^I set status of the fulfillment order to "([^"]*)"$/
+        * @When /^I set state of the fulfillment order to "([^"]*)"$/
         */
-       public function iSetStatusOfTheFulfillmentOrderTo($argument1)
+       public function iSetStateOfTheFulfillmentOrderTo($argument1)
+       {
+           $this->fulfillment->setState('Processing');
+       }
+
+       /**
+        * @Then /^I should read back "([^"]*)" for state$/
+        */
+       public function iShouldReadBackForState($argument1)
+       {
+           assertEquals('Processing', $this->fulfillment->getState());
+       }
+
+       /**
+        * @When /^I get the fulfillment service$/
+        */
+       public function iGetTheFulfillmentService()
+       {
+           $this->fm = new FulfillmentManager('Vespolina\FulfillmentBundle\Features\Model\DummyFulfillment');
+       }
+
+       /**
+        * @Given /^I invoke to create a Fulfillment Order$/
+        */
+       public function iInvokeToCreateAFulfillmentOrder()
+       {
+           $this->product = new Product();
+           $this->fulfillment = $this->fm->createFulfillment($this->product);
+       }
+
+       /**
+        * @Then /^I get a confirmation that Fulfillment Order was created$/
+        */
+       public function iGetAConfirmationThatFulfillmentOrderWasCreated()
+       {
+           assertEquals($this->fulfillment->getProduct(), $this->product );
+       }
+
+       /**
+        * @Given /^I invoke to display fulfillment preview for a given order$/
+        */
+       public function iInvokeToDisplayFulfillmentPreviewForAGivenOrder()
        {
            throw new PendingException();
        }
 
        /**
-        * @Then /^I should read back "([^"]*)" for status$/
+        * @Then /^I get a information about possible fulfillment$/
         */
-       public function iShouldReadBackForStatus($argument1)
+       public function iGetAInformationAboutPossibleFulfillment()
        {
            throw new PendingException();
        }
 
+       /**
+        * @Given /^I invoke to get a specific Fulfillment Order$/
+        */
+       public function iInvokeToGetASpecificFulfillmentOrder()
+       {
+           throw new PendingException();
+       }
+
+       /**
+        * @Then /^I get a all information about this specific Fulfillment Order$/
+        */
+       public function iGetAAllInformationAboutThisSpecificFulfillmentOrder()
+       {
+           throw new PendingException();
+       }
+
+       /**
+        * @Given /^I invoke to cancel a Fulfillment Order$/
+        */
+       public function iInvokeToCancelAFulfillmentOrder()
+       {
+           throw new PendingException();
+       }
+
+       /**
+        * @Then /^I get a confirmation that the Order was cancelled$/
+        */
+       public function iGetAConfirmationThatTheOrderWasCancelled()
+       {
+           throw new PendingException();
+       }
 
 }
