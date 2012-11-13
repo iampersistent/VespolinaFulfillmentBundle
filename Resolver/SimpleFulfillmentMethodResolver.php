@@ -9,7 +9,7 @@ namespace Vespolina\FulfillmentBundle\Resolver;
 
 use Vespolina\FulfillmentBundle\Resolver\AbstractFulfillmentMethodResolver;
 use Vespolina\PartnerBundle\Model\Address;
-use Vespolina\ProductBundle\Model\Product;
+use Vespolina\Entity\Product\BaseProduct;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
@@ -36,11 +36,13 @@ class SimpleFulfillmentMethodResolver extends AbstractFulfillmentMethodResolver
         }
 
         switch (array_shift($productTypes)) {
-            case Product::PHYSICAL:
+            case BaseProduct::PHYSICAL:
             case 'default':
 
                 return $this->resolveFulfillmentMethodsPhysical($products, $zone);
         }
+
+        return array();
     }
 
     public function resolveFulfillmentMethodsPhysical($products, $zone)
